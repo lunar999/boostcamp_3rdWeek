@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">3rdMiniProject</string>
+    <string name="title_name">맛집 등록</string>
+    <string name="add_hint_name">맛집 이름을 입력하세요</string>
+    <string name="add_hint_address">주소를 입력하세요</string>
+    <string name="add_hint_phone">전화번호를 입력하세요</string>
+    <string name="add_content_num_header">글자수 :\u0020</string>
+    <string name="add_content_num_footer">/500</string>
+    <string name="add_hint_content">내용을 입력하세요 (최대 500자)</string>
+    <string name="previous">이전</string>
+    <string name="next">다음</string>
+    <string name="title_activity_maps">Map</string>
 </resources>

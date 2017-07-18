@@ -4,15 +4,105 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
+    android:padding="@dimen/half_unit_dimen"
     tools:context="com.miniproject.a3rd.a3rdminiproject.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <EditText
+        android:id="@+id/add_name"
+        style="@style/TextAppearance.AppCompat.Medium"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@drawable/round_rect"
+        android:hint="@string/add_hint_name"
+        android:inputType="text"
+        android:padding="@dimen/unit_dimen"
+        app:layout_goneMarginBottom="0dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/add_address"
+        style="@style/TextAppearance.AppCompat.Medium"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/round_rect"
+        android:hint="@string/add_hint_address"
+        android:inputType="text"
+        android:padding="@dimen/unit_dimen"
+        android:layout_marginTop="@dimen/half_unit_dimen"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/add_name" />
+
+    <EditText
+        android:id="@+id/add_phone"
+        style="@style/TextAppearance.AppCompat.Medium"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/round_rect"
+        android:hint="@string/add_hint_phone"
+        android:inputType="phone"
+        android:padding="@dimen/unit_dimen"
+        android:layout_marginTop="@dimen/half_unit_dimen"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/add_address" />
+
+    <TextView
+        android:id="@+id/add_content_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/unit_dimen"
+        android:layout_marginRight="@dimen/unit_dimen"
+        tools:text="@string/add_content_num_header"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/add_phone" />
+
+    <EditText
+        android:id="@+id/add_content"
+        style="@style/TextAppearance.AppCompat.Medium"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/round_rect"
+        android:gravity="top"
+        android:hint="@string/add_hint_content"
+        android:inputType="textLongMessage"
+        android:padding="@dimen/unit_dimen"
+        android:layout_marginBottom="@dimen/half_unit_dimen"
+        app:layout_constraintBottom_toTopOf="@+id/add_bt_next"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/add_content_num" />
+
+    <android.support.constraint.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/guideline3"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <Button
+        android:id="@+id/add_bt_prev"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/round_rect"
+        android:foreground="?attr/selectableItemBackground"
+        android:text="@string/previous"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/guideline3" />
+
+    <Button
+        android:id="@+id/add_bt_next"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/round_rect"
+        android:foreground="?attr/selectableItemBackground"
+        android:text="@string/next"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="@id/guideline3" />
 
 </android.support.constraint.ConstraintLayout>
