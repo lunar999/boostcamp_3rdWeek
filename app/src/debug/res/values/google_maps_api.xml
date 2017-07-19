@@ -1,0 +1,24 @@
+<resources>
+    <!--
+    TODO: Before you run your application, you need a Google Maps API key.
+
+    To get one, follow this link, follow the directions and press "Create" at the end:
+
+    https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend&keyType=CLIENT_SIDE_ANDROID&r=29:B4:6D:99:CB:ED:80:90:91:A3:EA:D3:83:E2:85:D0:94:6F:BF:C6%3Bcom.tistory.puzzleleaf.androidminiproject3
+
+    You can also add your credentials to an existing key, using these values:
+
+    Package name:
+    29:B4:6D:99:CB:ED:80:90:91:A3:EA:D3:83:E2:85:D0:94:6F:BF:C6
+
+    SHA-1 certificate fingerprint:
+    29:B4:6D:99:CB:ED:80:90:91:A3:EA:D3:83:E2:85:D0:94:6F:BF:C6
+
+    Alternatively, follow the directions here:
+    https://developers.google.com/maps/documentation/android/start#get-key
+
+    Once you have your key (it starts with "AIza"), replace the "google_maps_key"
+    string in this file.
+    -->
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyCm2rEXU8pgXj2Zm4h5ZaBHjWpTxw3mh5Q</string>
+</resources>
