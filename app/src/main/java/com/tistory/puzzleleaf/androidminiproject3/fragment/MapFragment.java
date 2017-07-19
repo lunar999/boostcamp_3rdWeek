@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
-import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -28,10 +27,8 @@ import com.tistory.puzzleleaf.androidminiproject3.R;
 import com.tistory.puzzleleaf.androidminiproject3.db.Db;
 import com.tistory.puzzleleaf.androidminiproject3.item.MarkerData;
 import com.tistory.puzzleleaf.androidminiproject3.service.DbService;
+import com.tistory.puzzleleaf.androidminiproject3.service.GeocoderService;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -51,6 +48,8 @@ public class MapFragment extends BaseFragment implements OnMapReadyCallback {
 
     private final String DB_REFRESH_SERVICE_BROADCAST = "dbRefresh";
     private final String DB_SELECT_SERVICE_BORADCAST = "dbSelect";
+
+    private final String GEOCODER_SERVICE_BROADCAST = "Geocoder";
 
     @BindView(R.id.map_btn) Button mapButton;
     @BindView(R.id.map) MapView mapView;
@@ -104,7 +103,6 @@ public class MapFragment extends BaseFragment implements OnMapReadyCallback {
             @Override
             public boolean onMarkerClick(Marker marker) {
                 marker.showInfoWindow();
-                mapAddress.setText(marker.getSnippet());
                 //select service BroadCast
                 Intent intent = new Intent(getContext(), DbService.class);
                 intent.setAction(DB_SELECT_SERVICE_BORADCAST);
@@ -126,22 +124,16 @@ public class MapFragment extends BaseFragment implements OnMapReadyCallback {
             }
             @Override
             public void onMarkerDragEnd(Marker marker) {
-                Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
-                List<android.location.Address> addresses;
-                try {
-                    addresses = geocoder.getFromLocation(marker.getPosition().latitude, marker.getPosition().longitude, 1);
+                marker.hideInfoWindow();
+                marker.setTitle("");
+                marker.setSnippet("");
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(marker.getPosition(),15f));
 
-                    String address = addresses.get(0).getAddressLine(1) + addresses.get(0).getAddressLine(0);
-
-                    marker.setTitle("null");
-                    marker.setSnippet(address);
-                    marker.hideInfoWindow();
-
-                    mapAddress.setText(address);
-                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(marker.getPosition(),15f));
-                } catch (IOException e) {
-                    Toast.makeText(getContext(),"주소 로딩에 실패했습니다.",Toast.LENGTH_SHORT).show();
-                }
+                Intent intent = new Intent(getContext(), GeocoderService.class);
+                intent.setAction(GEOCODER_SERVICE_BROADCAST);
+                intent.putExtra("latitude",marker.getPosition().latitude);
+                intent.putExtra("longitude",marker.getPosition().longitude);
+                getActivity().startService(intent);
             }
         });
     }
@@ -167,6 +159,7 @@ public class MapFragment extends BaseFragment implements OnMapReadyCallback {
         IntentFilter filter = new IntentFilter();
         filter.addAction(DB_REFRESH_SERVICE_BROADCAST);
         filter.addAction(DB_SELECT_SERVICE_BORADCAST);
+        filter.addAction(GEOCODER_SERVICE_BROADCAST);
         getActivity().registerReceiver(dbRefresh, filter);
     }
 
@@ -219,6 +212,7 @@ public class MapFragment extends BaseFragment implements OnMapReadyCallback {
         }
     }
 
+
     private class DbRefreshBroadCastReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -230,10 +224,18 @@ public class MapFragment extends BaseFragment implements OnMapReadyCallback {
                     isRefreshed = !isRefreshed; // 이미 갱신 했음을 체크
                 }
             }
-            if(intent.getAction().equals(DB_SELECT_SERVICE_BORADCAST)){
+            //마커 클릭시 DB 정보 읽어오기 위함
+            else if(intent.getAction().equals(DB_SELECT_SERVICE_BORADCAST)){
                 String data = intent.getStringExtra("select");
                 if(data!=null) {
                     Toast.makeText(getContext(), data,Toast.LENGTH_SHORT).show();
+                }
+            }
+            //Marker Drag시 새로운 주소를 구하기 위함
+            else if(intent.getAction().equals(GEOCODER_SERVICE_BROADCAST)){
+                String address = intent.getStringExtra("address");
+                if(address!=null) {
+                    mapAddress.setText(address);
                 }
             }
         }
