@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,10 +78,8 @@ public class MapFragment extends BaseFragment implements OnMapReadyCallback {
         markerClickListener();
         markerDragListener();
 
-        //이미 초기화 되었다면 하지 않는다.
-        if (!isRefreshed) {
-            refreshData();
-        }
+        refreshData();
+
     }
 
     //Location과 Zoom 버튼 설정
@@ -139,7 +138,10 @@ public class MapFragment extends BaseFragment implements OnMapReadyCallback {
     }
 
     //마커에 데이터를 추가
-    private void refreshData() {
+    private synchronized void refreshData() {
+        if(isRefreshed) {
+            return;
+        }
         LatLng mkLatLng = null;
         for (MarkerData temp : Db.markerDatas) {
             mkLatLng = new LatLng(temp.getLatitude(), temp.getLongitude());
@@ -151,6 +153,7 @@ public class MapFragment extends BaseFragment implements OnMapReadyCallback {
             mapAddress.setText(Db.markerDatas.get(Db.markerDatas.size()-1).getAddress());
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mkLatLng, 15f));
         }
+        isRefreshed = !isRefreshed; // 이미 갱신 했음을 체크
     }
 
     //BroadCast 등록
@@ -221,7 +224,7 @@ public class MapFragment extends BaseFragment implements OnMapReadyCallback {
             if (intent.getAction().equals(DB_REFRESH_SERVICE_BROADCAST)) {
                 if (mMap != null) {
                     refreshData();
-                    isRefreshed = !isRefreshed; // 이미 갱신 했음을 체크
+
                 }
             }
             //마커 클릭시 DB 정보 읽어오기 위함
