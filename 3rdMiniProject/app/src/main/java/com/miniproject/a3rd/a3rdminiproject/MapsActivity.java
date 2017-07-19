@@ -116,6 +116,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         try {
             LatLng foundLatLng = getLatLngFromAddress(restaurant.getAddress());
             mMap.addMarker(new MarkerOptions().title(restaurant.getTitle())
+                    .snippet(restaurant.getPhone())
                     .position(foundLatLng)
                     .draggable(true)).setTag(restaurant);
             changeLatLng(restaurant, foundLatLng);

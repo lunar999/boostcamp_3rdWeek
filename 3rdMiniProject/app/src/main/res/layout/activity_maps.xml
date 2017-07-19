@@ -24,6 +24,8 @@
         android:background="@color/text_alpha_bg"
         android:ellipsize="end"
         android:maxLines="1"
+        android:paddingTop="@dimen/small_dimen"
+        android:paddingBottom="@dimen/small_dimen"
         android:paddingEnd="@dimen/half_unit_dimen"
         android:paddingStart="@dimen/half_unit_dimen"
         android:textColor="@android:color/white"
