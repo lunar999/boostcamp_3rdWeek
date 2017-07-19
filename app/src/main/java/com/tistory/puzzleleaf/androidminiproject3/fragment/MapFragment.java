@@ -117,9 +117,11 @@ public class MapFragment extends BaseFragment implements OnMapReadyCallback {
         mMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
             @Override
             public void onMarkerDragStart(Marker marker) {
+                mapAddress.setText("Loading");
             }
             @Override
             public void onMarkerDrag(Marker marker) {
+                mapAddress.setText(mapAddress.getText().toString()+".");
             }
             @Override
             public void onMarkerDragEnd(Marker marker) {
