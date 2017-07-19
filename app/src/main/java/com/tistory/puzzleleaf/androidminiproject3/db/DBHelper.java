@@ -45,7 +45,7 @@ public class DBHelper extends SQLiteOpenHelper {
         String query = "select * from MARKER where address = '"+address+"';";
         Cursor cursor = db.rawQuery(query,null);
         if(cursor.moveToFirst()){
-            String info = cursor.getString(1) + " " + cursor.getString(3) + " " + cursor.getString(4);
+            String info = "이름 : " + cursor.getString(1) + "\n번호 : " + cursor.getString(3) + "\n설명 : " + cursor.getString(4);
             return info;
         }
         else {

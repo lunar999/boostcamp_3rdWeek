@@ -27,6 +27,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.tistory.puzzleleaf.androidminiproject3.R;
 import com.tistory.puzzleleaf.androidminiproject3.db.Db;
 import com.tistory.puzzleleaf.androidminiproject3.item.MarkerData;
+import com.tistory.puzzleleaf.androidminiproject3.service.DbService;
 
 import java.io.IOException;
 import java.util.List;
@@ -47,6 +48,9 @@ public class MapFragment extends BaseFragment implements OnMapReadyCallback {
     private GoogleMap mMap;
     private boolean isRefreshed = false;
     private DbRefreshBroadCastReceiver dbRefresh;
+
+    private final String DB_REFRESH_SERVICE_BROADCAST = "dbRefresh";
+    private final String DB_SELECT_SERVICE_BORADCAST = "dbSelect";
 
     @BindView(R.id.map_btn) Button mapButton;
     @BindView(R.id.map) MapView mapView;
@@ -101,7 +105,11 @@ public class MapFragment extends BaseFragment implements OnMapReadyCallback {
             public boolean onMarkerClick(Marker marker) {
                 marker.showInfoWindow();
                 mapAddress.setText(marker.getSnippet());
-                Toast.makeText(getContext(), Db.dbHelper.selectName(marker.getSnippet()), Toast.LENGTH_SHORT).show();
+                //select service BroadCast
+                Intent intent = new Intent(getContext(), DbService.class);
+                intent.setAction(DB_SELECT_SERVICE_BORADCAST);
+                intent.putExtra("select",marker.getSnippet());
+                getActivity().startService(intent);
                 return true;
             }
         });
@@ -132,7 +140,7 @@ public class MapFragment extends BaseFragment implements OnMapReadyCallback {
                     mapAddress.setText(address);
                     mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(marker.getPosition(),15f));
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Toast.makeText(getContext(),"주소 로딩에 실패했습니다.",Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -157,7 +165,8 @@ public class MapFragment extends BaseFragment implements OnMapReadyCallback {
     private void dbBroadCastInit() {
         dbRefresh = new DbRefreshBroadCastReceiver();
         IntentFilter filter = new IntentFilter();
-        filter.addAction("dbRefresh");
+        filter.addAction(DB_REFRESH_SERVICE_BROADCAST);
+        filter.addAction(DB_SELECT_SERVICE_BORADCAST);
         getActivity().registerReceiver(dbRefresh, filter);
     }
 
@@ -215,10 +224,16 @@ public class MapFragment extends BaseFragment implements OnMapReadyCallback {
         public void onReceive(Context context, Intent intent) {
             // 백그라운드 쓰레드에서 데이터 갱신이 완료 된 이후에 마커를 추가해야 한다.
             // 맵 초기화 보다 데이터 갱신이 빠를 수 있다. 예외 처리가 필요하다.
-            if (intent.getAction().equals("dbRefresh")) {
+            if (intent.getAction().equals(DB_REFRESH_SERVICE_BROADCAST)) {
                 if (mMap != null) {
                     refreshData();
                     isRefreshed = !isRefreshed; // 이미 갱신 했음을 체크
+                }
+            }
+            if(intent.getAction().equals(DB_SELECT_SERVICE_BORADCAST)){
+                String data = intent.getStringExtra("select");
+                if(data!=null) {
+                    Toast.makeText(getContext(), data,Toast.LENGTH_SHORT).show();
                 }
             }
         }

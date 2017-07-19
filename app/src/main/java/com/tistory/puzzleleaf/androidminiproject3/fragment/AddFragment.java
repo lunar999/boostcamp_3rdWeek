@@ -35,7 +35,10 @@ import static android.app.Activity.RESULT_OK;
 
 public class AddFragment extends BaseFragment {
 
-    final int SEARCHADDRESS = 1000;
+
+    private final String DB_INSERT_SERVICE = "dbInsert";
+    private final String DB_REFERESH_SERVICE = "dbRefresh";
+    private final int SEARCH_ADDRESS = 1000;
     //EditText
     @BindView(R.id.add_name) EditText name; @BindView(R.id.add_number) EditText number;
     @BindView(R.id.add_address) TextView address; @BindView(R.id.add_description) EditText description;
@@ -57,7 +60,7 @@ public class AddFragment extends BaseFragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == SEARCHADDRESS) {
+        if (requestCode == SEARCH_ADDRESS) {
             if (resultCode == RESULT_OK) {
                 Place place = PlaceAutocomplete.getPlace(getContext(), data);
                 address.setText(place.getAddress().toString());
@@ -91,7 +94,7 @@ public class AddFragment extends BaseFragment {
     public void addAddress(){
         try {
             Intent intent = new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_FULLSCREEN).build(getActivity());
-            startActivityForResult(intent, SEARCHADDRESS);
+            startActivityForResult(intent, SEARCH_ADDRESS);
         } catch (GooglePlayServicesRepairableException e) {
             Toast.makeText(getContext(),"에러가 발생했습니다.",Toast.LENGTH_SHORT).show();
         } catch (GooglePlayServicesNotAvailableException e) {
@@ -128,7 +131,7 @@ public class AddFragment extends BaseFragment {
                 description.getText().toString(),Double.parseDouble(latitude), Double.parseDouble(longitude));
         Intent intent = new Intent(getContext(),DbService.class);
         intent.putExtra("obj",gson.toJson(markerData));
-        intent.setAction("dbInsert");
+        intent.setAction(DB_INSERT_SERVICE);
         getActivity().startService(intent);
 
     }
@@ -136,7 +139,7 @@ public class AddFragment extends BaseFragment {
     //백그라운드 스레드에서 DB데이터를 읽어옴
     private void refreshData(){
         Intent intent = new Intent(getActivity(), DbService.class);
-        intent.setAction("dbRead");
+        intent.setAction(DB_REFERESH_SERVICE);
         getActivity().startService(intent);
     }
 
