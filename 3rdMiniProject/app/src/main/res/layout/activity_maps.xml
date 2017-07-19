@@ -1,9 +1,50 @@
-<!-- TODO : TextView, Button 추가 -->
-<fragment xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:map="http://schemas.android.com/apk/res-auto"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/map"
-    android:name="com.google.android.gms.maps.SupportMapFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.miniproject.a3rd.a3rdminiproject.MapsActivity" />
+    android:padding="@dimen/half_unit_dimen"
+    tools:context="com.miniproject.a3rd.a3rdminiproject.MapsActivity">
+
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/half_unit_dimen"
+        app:layout_constraintBottom_toTopOf="@+id/map_bt_next"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/map_address"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/text_alpha_bg"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:paddingEnd="@dimen/half_unit_dimen"
+        android:paddingStart="@dimen/half_unit_dimen"
+        android:textColor="@android:color/white"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@string/address" />
+
+    <Button
+        android:id="@+id/map_bt_next"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/half_unit_dimen"
+        android:background="@drawable/round_rect"
+        android:foreground="?attr/selectableItemBackground"
+        android:paddingBottom="@dimen/unit_dimen"
+        android:paddingTop="@dimen/unit_dimen"
+        android:text="@string/next"
+        android:textColor="@android:color/primary_text_light"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+</android.support.constraint.ConstraintLayout>
