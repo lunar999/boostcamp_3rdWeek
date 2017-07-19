@@ -1,0 +1,35 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:background="@color/colorLightGray"
+
+    android:orientation="vertical"
+    android:padding="@dimen/map_layout_padding"
+    android:weightSum="1"
+    tools:context="com.study.tedkim.registgoodplace.MapFragment">
+
+
+    <FrameLayout
+        android:id="@+id/layout_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.75">
+
+        <fragment
+            android:id="@+id/fragment_googleMap"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="503dp"
+            android:layout_weight="0.75" />
+    </FrameLayout>
+
+    <Button
+        android:id="@+id/button_next"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/map_layout_margin"
+        android:background="@drawable/edit_text_shape"
+        android:text="Button" />
+</LinearLayout>

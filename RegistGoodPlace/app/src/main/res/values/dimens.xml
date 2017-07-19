@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="register_layout_padding">8dp</dimen>
+    <dimen name="register_layout_margin">8dp</dimen>
+
+    <dimen name="map_layout_padding">8dp</dimen>
+    <dimen name="map_layout_margin">8dp</dimen>
+
+    <dimen name="toolBar_margin">8dp</dimen>
+
+    <dimen name="line_width">1dp</dimen>
+    <dimen name="half_unit_dimen">8dp</dimen>
+    <dimen name="edit_text_padding">20dp</dimen>
+
+</resources>
