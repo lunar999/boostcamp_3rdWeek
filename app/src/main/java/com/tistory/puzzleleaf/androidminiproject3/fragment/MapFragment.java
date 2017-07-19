@@ -118,9 +118,8 @@ public class MapFragment extends BaseFragment implements OnMapReadyCallback {
             }
             @Override
             public void onMarkerDragEnd(Marker marker) {
-                Geocoder geocoder;
+                Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
                 List<android.location.Address> addresses;
-                geocoder = new Geocoder(getContext(), Locale.getDefault());
                 try {
                     addresses = geocoder.getFromLocation(marker.getPosition().latitude, marker.getPosition().longitude, 1);
 
@@ -158,7 +157,7 @@ public class MapFragment extends BaseFragment implements OnMapReadyCallback {
     private void dbBroadCastInit() {
         dbRefresh = new DbRefreshBroadCastReceiver();
         IntentFilter filter = new IntentFilter();
-        filter.addAction("dbrefresh");
+        filter.addAction("dbRefresh");
         getActivity().registerReceiver(dbRefresh, filter);
     }
 
@@ -205,7 +204,10 @@ public class MapFragment extends BaseFragment implements OnMapReadyCallback {
         super.onDestroy();
         mapView.onDestroy();
         //BroadCast 해제
-        getActivity().unregisterReceiver(dbRefresh);
+        if(dbRefresh!=null) {
+            getActivity().unregisterReceiver(dbRefresh);
+            dbRefresh = null;
+        }
     }
 
     private class DbRefreshBroadCastReceiver extends BroadcastReceiver {
