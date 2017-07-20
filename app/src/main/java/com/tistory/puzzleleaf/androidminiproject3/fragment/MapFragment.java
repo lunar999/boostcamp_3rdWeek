@@ -9,7 +9,6 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,12 +43,11 @@ import butterknife.OnClick;
 public class MapFragment extends BaseFragment implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-    private boolean isRefreshed = false;
+    private boolean isRefreshed = true;
     private DbRefreshBroadCastReceiver dbRefresh;
 
     private final String DB_REFRESH_SERVICE_BROADCAST = "dbRefresh";
     private final String DB_SELECT_SERVICE_BORADCAST = "dbSelect";
-
     private final String GEOCODER_SERVICE_BROADCAST = "Geocoder";
 
     @BindView(R.id.map_btn) Button mapButton;
@@ -225,6 +223,7 @@ public class MapFragment extends BaseFragment implements OnMapReadyCallback {
             // 맵 초기화 보다 데이터 갱신이 빠를 수 있다. 예외 처리가 필요하다.
             if (intent.getAction().equals(DB_REFRESH_SERVICE_BROADCAST)) {
                 if (mMap != null) {
+                    isRefreshed = false;
                     refreshData();
 
                 }

@@ -5,14 +5,6 @@ import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.support.annotation.Nullable;
-import android.widget.Toast;
-
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.gson.Gson;
-import com.tistory.puzzleleaf.androidminiproject3.db.Db;
-import com.tistory.puzzleleaf.androidminiproject3.item.MarkerData;
-
-import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
@@ -34,14 +26,13 @@ public class GeocoderService extends IntentService {
             Geocoder geocoder = new Geocoder(this, Locale.getDefault());
             double latitude = intent.getDoubleExtra("latitude", 0);
             double longitude = intent.getDoubleExtra("longitude", 0);
-            String address = "주소 로딩에 실패했습니다";
-            List<Address> addresses;
+            String address = "";
             try {
-                addresses = geocoder.getFromLocation(latitude, longitude, 1);
-                address = addresses.get(0).getAddressLine(1) + addresses.get(0).getAddressLine(0);
-            } catch (IOException e) {
-
-            } finally {
+                List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
+                address = addresses.get(0).getAddressLine(0);
+            } catch (Exception e) {
+                address = "주소 로딩에 실패했습니다";
+            }finally {
                 sendBroadcast(new Intent(GEOCODER_SERVICE_BROADCAST).putExtra("address", address));
             }
         }
