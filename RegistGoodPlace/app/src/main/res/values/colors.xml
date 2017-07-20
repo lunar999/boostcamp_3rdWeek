@@ -6,6 +6,6 @@
     <color name="colorAccent">#FF4081</color>
     <color name="colorLightGray">#d3d3d3</color>
     <color name="colorLine">#ABABAB</color>
-    <color name="colorWhite">#FFFFFF</color>
-
+    <color name="colorWhite">#ffffff</color>
+    <color name="colorDim">#80000000</color>
 </resources>
