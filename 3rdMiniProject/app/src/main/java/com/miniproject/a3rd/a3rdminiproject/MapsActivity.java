@@ -66,29 +66,37 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     // intent 에서 데이터 가져오기
+    @NonNull
     private Restaurant getRestaurantFromIntent(@NonNull Intent intent) {
-        String title = intent.getStringExtra(Restaurant.TITLE_NAME);
-        String address = intent.getStringExtra(Restaurant.ADDRESS_NAME);
-        String phone = intent.getStringExtra(Restaurant.PHONE_NAME);
-        String content = intent.getStringExtra(Restaurant.CONTENT_NAME);
+        String title    = intent.getStringExtra(Restaurant.TITLE_NAME);
+        String address  = intent.getStringExtra(Restaurant.ADDRESS_NAME);
+        String phone    = intent.getStringExtra(Restaurant.PHONE_NAME);
+        String content  = intent.getStringExtra(Restaurant.CONTENT_NAME);
         return new Restaurant(title, address, phone, content);
     }
 
     // 맵 설정
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        // 기본 설정
         mMap = googleMap;
         mMap.setOnMarkerDragListener(this);
         mMap.setIndoorEnabled(true);
         mMap.getUiSettings().setMyLocationButtonEnabled(true);
         mMap.getUiSettings().setZoomControlsEnabled(true);
-        enableMyLocation();
 
+        // 기존 데이터로 맵에 마커찍기
         RealmResults<Restaurant> savedRestaurants = mRealm.where(Restaurant.class).findAll();
         for(Restaurant restaurant : savedRestaurants) {
             addRestaurantInMap(restaurant);
         }
-        addRestaurantInMap(mCurRestaurant);
+
+        // 현재 데이터 추가 (+ 입력한 주소검증)
+        if(addRestaurantInMap(mCurRestaurant)) {
+            enableMyLocation();
+        } else {
+            finish();
+        }
     }
 
     // '현재 위치로 이동' 버튼 추가
@@ -98,7 +106,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             mMap.setMyLocationEnabled(true);
         } else if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             Toast.makeText(this, getString(R.string.err_permission), Toast.LENGTH_SHORT).show();
-            requestPermissions(new String[]{"android.permission.ACCESS_FINE_LOCATION", "android.permission.ACCESS_COARSE_LOCATION"}, PERMISSION_CODE);
+            requestPermissions(getResources().getStringArray(R.array.location_permission), PERMISSION_CODE);
         }
     }
 
@@ -112,7 +120,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
 
-    private void addRestaurantInMap(Restaurant restaurant) {
+    // 맛집 추가. 성공 시 true, 실패 시 false.
+    private boolean addRestaurantInMap(Restaurant restaurant) {
         try {
             LatLng foundLatLng = getLatLngFromAddress(restaurant.getAddress());
             mMap.addMarker(new MarkerOptions().title(restaurant.getTitle())
@@ -120,9 +129,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     .position(foundLatLng)
                     .draggable(true)).setTag(restaurant);
             changeLatLng(restaurant, foundLatLng);
+            return true;
         } catch (Exception e) {
             Toast.makeText(this, getString(R.string.err_not_found_address), Toast.LENGTH_SHORT).show();
             e.printStackTrace();
+            return false;
         }
     }
 
