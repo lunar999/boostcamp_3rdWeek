@@ -1,18 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorGray"
     tools:context="com.project3.mini.yunkyun.miniproject3.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <EditText
+        android:id="@+id/et_name"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:layout_margin="4dp"
+        android:paddingLeft="8dp"
+        android:background="@drawable/bg_edittext"
+        android:inputType="text"
+        android:imeOptions="actionNext"
+        android:hint="이름" />
 
-</android.support.constraint.ConstraintLayout>
+    <EditText
+        android:id="@+id/et_address"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:layout_margin="4dp"
+        android:paddingLeft="8dp"
+        android:background="@drawable/bg_edittext"
+        android:inputType="text"
+        android:hint="주소" />
+
+    <EditText
+        android:id="@+id/et_phonenumber"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:layout_margin="4dp"
+        android:paddingLeft="8dp"
+        android:background="@drawable/bg_edittext"
+        android:inputType="phone"
+        android:hint="전화번호" />
+
+    <TextView
+        android:id="@+id/tv_character_counter"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_margin="4dp"
+        android:gravity="right|center_vertical"
+        android:text="글자수 0/500" />
+
+    <EditText
+        android:id="@+id/et_memo"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="8"
+        android:layout_margin="4dp"
+        android:gravity="top"
+        android:padding="8dp"
+        android:paddingTop="8dp"
+        android:background="@drawable/bg_edittext"
+        android:maxLength="500"
+        android:inputType="textMultiLine"
+        android:hint="메모" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_prev"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="이전" />
+
+        <Button
+            android:id="@+id/btn_next"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="다음" />
+    </LinearLayout>
+</LinearLayout>
