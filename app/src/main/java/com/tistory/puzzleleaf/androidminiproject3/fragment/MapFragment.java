@@ -42,8 +42,8 @@ import butterknife.OnClick;
 
 public class MapFragment extends BaseFragment implements OnMapReadyCallback {
 
-    private GoogleMap mMap;
-    private boolean isRefreshed = true;
+    private GoogleMap mMap = null;
+    private boolean isRefreshed = false;
     private DbRefreshBroadCastReceiver dbRefresh;
 
     private final String DB_REFRESH_SERVICE_BROADCAST = "dbRefresh";
@@ -59,7 +59,6 @@ public class MapFragment extends BaseFragment implements OnMapReadyCallback {
         super.onCreate(savedInstanceState);
         dbBroadCastInit(); //BroadCastReceiver 등록
     }
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -68,18 +67,15 @@ public class MapFragment extends BaseFragment implements OnMapReadyCallback {
         mapView.getMapAsync(this);
         return view;
     }
-
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        refreshRequest();
         mapLocationZoomInit();
         markerClickListener();
         markerDragListener();
 
-        refreshData();
-
     }
-
     //Location과 Zoom 버튼 설정
     private void mapLocationZoomInit(){
         if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
@@ -87,13 +83,8 @@ public class MapFragment extends BaseFragment implements OnMapReadyCallback {
             mMap.setMyLocationEnabled(true);
             mMap.getUiSettings().setMyLocationButtonEnabled(true);
         }
-        else{
-            //권한설정
-            setPermission();
-        }
         mMap.getUiSettings().setZoomControlsEnabled(true);
     }
-
     //마커를 클릭하면 동작할 이벤트
     private void markerClickListener(){
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
@@ -109,7 +100,6 @@ public class MapFragment extends BaseFragment implements OnMapReadyCallback {
             }
         });
     }
-
     //마커 드레그 리스너
     private void markerDragListener(){
         mMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
@@ -136,10 +126,17 @@ public class MapFragment extends BaseFragment implements OnMapReadyCallback {
             }
         });
     }
+    //백그라운드 스레드에서 DB데이터를 읽어옴
+    private void refreshRequest(){
+        Intent intent = new Intent(getActivity(), DbService.class);
+        intent.setAction(DB_REFRESH_SERVICE_BROADCAST);
+        getActivity().startService(intent);
+    }
 
-    //마커에 데이터를 추가
-    private synchronized void refreshData() {
-        if(isRefreshed) {
+    //읽어온 데이터를 추가
+    synchronized private void refreshData() {
+        //flag 처리를 안하면 빠르게 지도 Fragment를 왔다갔다 하는 경우 이전에 요청한 서비스에 의해서 2번 갱신될 수 있음
+        if(isRefreshed){
             return;
         }
         LatLng mkLatLng = null;
@@ -211,7 +208,6 @@ public class MapFragment extends BaseFragment implements OnMapReadyCallback {
         //BroadCast 해제
         if(dbRefresh!=null) {
             getActivity().unregisterReceiver(dbRefresh);
-            dbRefresh = null;
         }
     }
 
@@ -219,14 +215,8 @@ public class MapFragment extends BaseFragment implements OnMapReadyCallback {
     private class DbRefreshBroadCastReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            // 백그라운드 쓰레드에서 데이터 갱신이 완료 된 이후에 마커를 추가해야 한다.
-            // 맵 초기화 보다 데이터 갱신이 빠를 수 있다. 예외 처리가 필요하다.
             if (intent.getAction().equals(DB_REFRESH_SERVICE_BROADCAST)) {
-                if (mMap != null) {
-                    isRefreshed = false;
-                    refreshData();
-
-                }
+                  refreshData();
             }
             //마커 클릭시 DB 정보 읽어오기 위함
             else if(intent.getAction().equals(DB_SELECT_SERVICE_BORADCAST)){
@@ -242,18 +232,6 @@ public class MapFragment extends BaseFragment implements OnMapReadyCallback {
                     mapAddress.setText(address);
                 }
             }
-        }
-    }
-
-    //권한 설정
-    private void setPermission(){
-        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(getActivity(),
-                    new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-            ActivityCompat.requestPermissions(getActivity(),
-                    new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
-            getActivity().onBackPressed(); //권한이 없으면 이전 fragment 화면으로 돌아감
         }
     }
 }

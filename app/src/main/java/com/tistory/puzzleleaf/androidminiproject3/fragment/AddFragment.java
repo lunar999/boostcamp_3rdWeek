@@ -35,9 +35,7 @@ import static android.app.Activity.RESULT_OK;
 
 public class AddFragment extends BaseFragment {
 
-
     private final String DB_INSERT_SERVICE = "dbInsert";
-    private final String DB_REFERESH_SERVICE = "dbRefresh";
     private final int SEARCH_ADDRESS = 1000;
     //EditText
     @BindView(R.id.add_name) EditText name; @BindView(R.id.add_number) EditText number;
@@ -136,13 +134,6 @@ public class AddFragment extends BaseFragment {
 
     }
 
-    //백그라운드 스레드에서 DB데이터를 읽어옴
-    private void refreshData(){
-        Intent intent = new Intent(getActivity(), DbService.class);
-        intent.setAction(DB_REFERESH_SERVICE);
-        getActivity().startService(intent);
-    }
-
     //하단 버튼
     @OnClick(R.id.add_prev)
     public void prev(){
@@ -154,11 +145,9 @@ public class AddFragment extends BaseFragment {
         if(isData()) {
             insertData();
             dataClear();
-            refreshData();
             startFragment(MapFragment.class);
         }
         else{
-            refreshData();
             startFragment(MapFragment.class);
             Toast.makeText(getContext(),"모든 데이터를 입력해야 등록됩니다.\nView 모드로 동작합니다.",Toast.LENGTH_SHORT).show();
         }
