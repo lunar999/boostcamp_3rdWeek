@@ -20,8 +20,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // view component 초기화
         initView();
 
+        // register Fragment 호출
         setFragment(new RegisterFragment());
     }
 
@@ -51,15 +53,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         switch(v.getId()){
 
+            // 뒤로가기 화살표
             case R.id.imageButton_back:
-
 
                 break;
 
+            // '닫기 버튼
             case R.id.button_close:
-
-                finish();
-
+                finish();   // Activity 종료
                 break;
         }
     }
