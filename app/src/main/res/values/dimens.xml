@@ -2,4 +2,7 @@
 <resources>
     <dimen name="regist_padding">4dp</dimen>
     <dimen name="text_size">13sp</dimen>
+    <dimen name="button_margin">4dp</dimen>
+    <dimen name="map_padding">4dp</dimen>
+    <dimen name="address_text_padding">2dp</dimen>
 </resources>

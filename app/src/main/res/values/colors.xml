@@ -5,4 +5,5 @@
     <color name="colorAccent">#88000000</color>
     <color name="colorLayout">#ECECEC</color>
     <color name="colorEditTextHint">#88000000</color>
+    <color name="textBackground">#77000000</color>
 </resources>

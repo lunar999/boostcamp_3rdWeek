@@ -1,11 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorLayout">
+    android:background="@color/colorLayout"
+    android:orientation="vertical"
+    android:padding="@dimen/map_padding">
 
-    <com.google.android.gms.maps.MapView
-        android:id="@+id/mapView"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="0dp"
+        android:layout_weight="8">
+
+        <com.google.android.gms.maps.MapView
+            android:id="@+id/mapView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:id="@+id/textAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/textBackground"
+            android:textSize="@dimen/text_size"
+            android:textColor="@android:color/white"
+            android:padding="@dimen/address_text_padding"
+            android:layout_alignParentTop="true" />
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/map_next"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="@dimen/button_margin"
+        android:layout_weight="1"
+        android:background="@drawable/button_background"
+        android:text="@string/button_next"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/text_size" />
 </LinearLayout>

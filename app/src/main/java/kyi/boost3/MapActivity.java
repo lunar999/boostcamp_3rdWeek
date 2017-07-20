@@ -4,10 +4,10 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 
 public class MapActivity extends AppCompatActivity {
-//    private RegistFragment regist;
-//    private MapFragment map;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,17 +19,30 @@ public class MapActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         ActionBar actionBar = getSupportActionBar();
-        if(actionBar != null) {
+        if (actionBar != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-//        regist = new RegistFragment();
-//        map = new MapFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.container, new RegistFragment()).commit();
-//        getSupportFragmentManager().beginTransaction().replace(R.id.container, map).commit();
-
-
+        PermissionCheck.verifyStoragePermissions(this);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            case R.id.menu_close:
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }
