@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#05c0c3</color>
+
+    <!--아이템 색-->
+    <color name="bg_color">#efefef</color>
+    <color name="colorBlack">#000000</color>
+    <color name="hintColor">#acacac</color>
+    <color name="colorTransparent">#00ffffff</color>
+</resources>
