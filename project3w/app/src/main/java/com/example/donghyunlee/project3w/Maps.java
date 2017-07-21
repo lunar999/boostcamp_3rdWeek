@@ -78,7 +78,6 @@ public class Maps extends Fragment implements OnMapReadyCallback {
         MainApplication mainAplication = (MainApplication) getActivity().getApplication();
         mRealm = mainAplication.getmRealm();
         init();
-
         /*
             지도 위 주소 정보 setting
          */
@@ -110,7 +109,6 @@ public class Maps extends Fragment implements OnMapReadyCallback {
     }
     @OnClick(R.id.bottomnext)
     void bottomNextfun(){
-
         insert_CRUD(name, address, phoneNum, content);
         storeList = getStoreList();
         Log.i(TAG, ">>>>>   storeList.size :  " + storeList.size()); // :1
