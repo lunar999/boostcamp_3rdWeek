@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">맛집등록</string>
+    <string name="counter_format">글자수 %d/500</string>
+    <string name="btn_next">다음</string>
+    <string name="btn_prev">이전</string>
     <string name="touch_btn_prev">이전 버튼을 눌렀습니다.</string>
     <string name="touch_menu_close">닫기 버튼을 눌렀습니다.</string>
-    <string name="counter_format">글자수 %d/500</string>
+    <string name="alert_requirement">이름, 주소, 전화번호를 입력해주세요.</string>
 </resources>
