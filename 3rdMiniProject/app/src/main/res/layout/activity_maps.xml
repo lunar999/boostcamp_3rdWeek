@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     android:padding="@dimen/half_unit_dimen"
     tools:context="com.miniproject.a3rd.a3rdminiproject.MapsActivity">
 
@@ -24,10 +25,10 @@
         android:background="@color/text_alpha_bg"
         android:ellipsize="end"
         android:maxLines="1"
-        android:paddingTop="@dimen/small_dimen"
         android:paddingBottom="@dimen/small_dimen"
         android:paddingEnd="@dimen/half_unit_dimen"
         android:paddingStart="@dimen/half_unit_dimen"
+        android:paddingTop="@dimen/small_dimen"
         android:textColor="@android:color/white"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
