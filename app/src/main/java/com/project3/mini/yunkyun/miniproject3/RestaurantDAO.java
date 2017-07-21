@@ -18,9 +18,9 @@ public class RestaurantDAO extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
     // Database Name
     private static final String DATABASE_NAME = "restaurantManager";
-    // Contacts table name
+    // Table name
     private static final String TABLE_NAME = "restaurant";
-    // Contacts Table Columns names
+    // Table Columns names
     private static final String KEY_ID = "id";
     private static final String KEY_NAME = "name";
     private static final String KEY_ADDRESS = "address";
@@ -35,7 +35,7 @@ public class RestaurantDAO extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createTableQuery = "CREATE TABLE " + TABLE_NAME + "("
+        String query = "CREATE TABLE " + TABLE_NAME + "("
                 + KEY_ID + " INTEGER PRIMARY KEY,"
                 + KEY_NAME + " TEXT,"
                 + KEY_ADDRESS + " TEXT,"
@@ -43,7 +43,7 @@ public class RestaurantDAO extends SQLiteOpenHelper {
                 + KEY_MEMO + " TEXT,"
                 + KEY_LATITUDE + " REAL,"
                 + KEY_LONGITUDE + " REAL" + ")";
-        db.execSQL(createTableQuery);
+        db.execSQL(query);
     }
 
     @Override
@@ -53,11 +53,11 @@ public class RestaurantDAO extends SQLiteOpenHelper {
     }
 
     List<Restaurant> findAll(){
-        String selectQuery = "SELECT * FROM " + TABLE_NAME;
+        String query = "SELECT * FROM " + TABLE_NAME;
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
-
+        Cursor cursor = db.rawQuery(query, null);
         List<Restaurant> tupleList = new ArrayList<>();
+
         if (cursor.moveToFirst()) {
             do {
                 Restaurant tuple = new Restaurant();
@@ -72,7 +72,9 @@ public class RestaurantDAO extends SQLiteOpenHelper {
                 tupleList.add(tuple);
             } while (cursor.moveToNext());
         }
+
         db.close();
+
         return tupleList;
     }
 
@@ -92,9 +94,3 @@ public class RestaurantDAO extends SQLiteOpenHelper {
         return id != -1;
     }
 }
-
-//    List<Restaurant> findById();
-//    List<Restaurant> findByName();
-//    boolean insertEmployee(Restaurant employee);
-//    boolean updateEmployee(Restaurant employee);
-//    boolean deleteEmployee(Restaurant employee);

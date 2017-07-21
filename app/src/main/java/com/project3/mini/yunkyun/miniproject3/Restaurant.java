@@ -22,7 +22,7 @@ public class Restaurant {
         this.memo = memo;
         this.latitude = latitude;
         this.longitude = longitude;
-        this.memo = "";
+        this.memo = memo;
     }
 
     public int getId() {

@@ -9,6 +9,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,11 +22,11 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by YunKyun on 2017-07-20.
@@ -33,12 +34,9 @@ import butterknife.ButterKnife;
 
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
     @BindView(R.id.tv_map_address) TextView addressView;
-
     private SupportMapFragment mapFragment;
     private GoogleMap map;
-    private ArrayList<Restaurant> itemList;
-
-    private RestaurantDAO dao;
+    private RestaurantDAO restaurantDAO;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -46,23 +44,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         setContentView(R.layout.activity_map);
         ButterKnife.bind(this);
 
-        dao = new RestaurantDAO(this);
+        restaurantDAO = new RestaurantDAO(this);
 
-        setPermission();
         setToolbar();
         setMapFragment();
-    }
-
-    private void setPermission(){
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
-            ActivityCompat.requestPermissions(this,
-                    new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-            ActivityCompat.requestPermissions(this,
-                    new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
-            return;
-        }
     }
 
     private void setToolbar() {
@@ -74,6 +59,11 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private void setMapFragment() {
         mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+    }
+
+    @OnClick(R.id.btn_map_next)
+    void onButtonClick(View view) {
+        Toast.makeText(this, getResources().getString(R.string.touch_btn_next), Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -98,32 +88,47 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             }
         });
 
-        initMapView();
+        loadRestaurants();
+        addRestaurant();
     }
 
-    private void initMapView() {
+    private void loadRestaurants() {
+        List<Restaurant> restaurants = restaurantDAO.findAll();
+        for(Restaurant restaurant : restaurants) {
+            String name = restaurant.getName();
+            String memo = restaurant.getMemo();
+            double latitude = restaurant.getLatitude();
+            double longitude = restaurant.getLongitude();
+            LatLng location = new LatLng(latitude, longitude);
+            map.addMarker(new MarkerOptions()
+                    .title(name)
+                    .snippet(memo)
+                    .position(location)
+                    .draggable(true)
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+        }
+    }
+
+    private void addRestaurant() {
         Intent intent = getIntent();
         String name = intent.getStringExtra("name");
         String address = intent.getStringExtra("address");
         String phoneNumber = intent.getStringExtra("phoneNumber");
         String memo = intent.getStringExtra("memo");
-        double latitude = intent.getDoubleExtra("latitude", -34.0);
-        double longitude = intent.getDoubleExtra("longitude", 151.0);
+        double latitude = intent.getDoubleExtra("latitude", 0.0);
+        double longitude = intent.getDoubleExtra("longitude", 0.0);
 
-        Restaurant item = new Restaurant(name, address, phoneNumber, memo, latitude, longitude);
-        dao.insertRestaurant(item);
-
-        List<Restaurant> list = dao.findAll();
-        for(int i = 0; i < list.size(); i++){
-            LatLng location = new LatLng(list.get(i).getLatitude(), list.get(i).getLongitude());
-            map.addMarker(new MarkerOptions().title(name).snippet(memo).position(location).draggable(true).icon(BitmapDescriptorFactory
-                    .defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
-        }
+        Restaurant restaurant = new Restaurant(name, address, phoneNumber, memo, latitude, longitude);
+        restaurantDAO.insertRestaurant(restaurant);
 
         addressView.setText(address);
 
         LatLng location = new LatLng(latitude, longitude);
-        map.addMarker(new MarkerOptions().title(name).snippet(memo).position(location).draggable(true));
+        map.addMarker(new MarkerOptions()
+                .title(name)
+                .snippet(memo)
+                .position(location)
+                .draggable(true));
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 16));
     }
 

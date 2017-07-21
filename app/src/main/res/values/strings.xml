@@ -4,6 +4,10 @@
     <string name="btn_next">다음</string>
     <string name="btn_prev">이전</string>
     <string name="touch_btn_prev">이전 버튼을 눌렀습니다.</string>
+    <string name="touch_btn_next">다음 버튼을 눌렀습니다.</string>
     <string name="touch_menu_close">닫기 버튼을 눌렀습니다.</string>
     <string name="alert_requirement">이름, 주소, 전화번호를 입력해주세요.</string>
+    <string name="alert_GPS">계속하려면 기기가 위치를 사용 설정하도록 허용하세요.</string>
+    <string name="setting">SETTING</string>
+    <string name="cancel">CANCEL</string>
 </resources>
