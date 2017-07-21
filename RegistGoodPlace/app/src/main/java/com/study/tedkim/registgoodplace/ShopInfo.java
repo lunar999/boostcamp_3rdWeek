@@ -17,6 +17,9 @@ public class ShopInfo extends RealmObject {
     private String tel;
     private String contents;
 
+    public ShopInfo(){
+
+    }
 
     public int getArticle_id() {
         return article_id;

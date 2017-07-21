@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import io.realm.Realm;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     Toolbar mToolbar;
@@ -25,6 +27,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // register Fragment 호출
         setFragment(new RegisterFragment());
+
     }
 
     private void initView(){
@@ -63,5 +66,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 finish();   // Activity 종료
                 break;
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        // TODO - Application 말고 Realm 객체를 가져 올 방법 생각해 보기
+        Realm realm = new MainApplication().getRealmInstatnce();
+        realm.close();
+
     }
 }
