@@ -9,6 +9,9 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.telephony.PhoneNumberFormattingTextWatcher;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,12 +67,34 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
         mNext = (Button) view.findViewById(R.id.button_next);
         mNext.setOnClickListener(this);
 
+        mShopPhone = (EditText) view.findViewById(R.id.editText_shopPhone);
+        mShopPhone.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
+
         mShopName = (EditText) view.findViewById(R.id.editText_shopName);
         mShopAddr = (EditText) view.findViewById(R.id.editText_shopAddr);
-        mShopPhone = (EditText) view.findViewById(R.id.editText_shopPhone);
-        mShopContents = (EditText) view.findViewById(R.id.editText_contents);
 
         mContentsLen = (TextView) view.findViewById(R.id.textView_contentsLength);
+
+        mShopContents = (EditText) view.findViewById(R.id.editText_contents);
+        mShopContents.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mContentsLen.setText("글자수 : "+s.length()+"/500");
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+
     }
 
     @Override
@@ -141,7 +166,6 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
                 @Override
                 public void execute(Realm realm) {
 
-                    // primary key 조심할 것
                     ShopInfo data = realm.createObject(ShopInfo.class, new Date().getTime());
 
                     data.setName(mShopName.getText().toString());
@@ -190,7 +214,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
             e.printStackTrace();
         }
 
-        // 2. 제대로 된 주소라면
+        // 2. 제대로 된 주소라면 ...
         return true;
     }
 }

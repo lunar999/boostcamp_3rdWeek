@@ -10,7 +10,7 @@ import io.realm.annotations.PrimaryKey;
 public class ShopInfo extends RealmObject {
 
     @PrimaryKey
-    private int article_id;
+    private long article_id;
 
     private String name;
     private String address;
@@ -21,11 +21,11 @@ public class ShopInfo extends RealmObject {
 
     }
 
-    public int getArticle_id() {
+    public long getArticle_id() {
         return article_id;
     }
 
-    public void setArticle_id(int article_id) {
+    public void setArticle_id(long article_id) {
         this.article_id = article_id;
     }
 

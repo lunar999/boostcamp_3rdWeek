@@ -8,8 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-
-import io.realm.Realm;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -58,23 +57,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             // 뒤로가기 화살표
             case R.id.imageButton_back:
+                Toast.makeText(this, "뒤로 가기 클릭", Toast.LENGTH_SHORT).show();
 
                 break;
 
             // '닫기 버튼
             case R.id.button_close:
                 finish();   // Activity 종료
+
                 break;
         }
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
-        // TODO - Application 말고 Realm 객체를 가져 올 방법 생각해 보기
-        Realm realm = new MainApplication().getRealmInstatnce();
-        realm.close();
-
-    }
+//    @Override
+//    protected void onDestroy() {
+//        super.onDestroy();
+//
+//        // TODO - Application 말고 Realm 객체를 가져 올 방법 생각해 보기
+//        Realm realm = new MainApplication().getRealmInstatnce();
+//        realm.close();
+//    }
 }
