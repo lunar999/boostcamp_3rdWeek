@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="sizeTitle">20dp</dimen>
+    <dimen name="sizeContent">12dp</dimen>
+    <dimen name="sizeContent2">15dp</dimen>
+    <dimen name="sizeIcon">20dp</dimen>
+    <dimen name="sizeTwentyMargin">20dp</dimen>
+    <dimen name="sizeStar">30dp</dimen>
+</resources>

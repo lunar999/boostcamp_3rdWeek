@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/register_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/topback"
+                    android:layout_width="@dimen/sizeIcon"
+                    android:layout_height="@dimen/sizeIcon"
+                    android:layout_gravity="center"
+                    android:background="@android:color/transparent"
+                    android:onClick="topBackFun"
+                    android:src="@drawable/ic_back" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="40dp"
+                    android:text="@string/item_menu0"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/sizeTitle"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/topexit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@android:color/transparent"
+                    android:gravity="end"
+                    android:onClick="topExitFun"
+                    android:padding="16dp"
+                    android:text="닫기"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/sizeContent2" />
+            </LinearLayout>
+        </android.support.v7.widget.Toolbar>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorLightGray"
+
+                android:orientation="vertical">
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_margin="10dp"
+                    card_view:cardCornerRadius="3dp">
+
+                    <EditText
+                        android:id="@+id/addstorename"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/colorWhite"
+                        android:hint="가게 이름을 입력하세요."
+                        android:imeOptions="actionDone"
+                        android:inputType="text"
+                        android:textColorHint="@color/colorGray" />
+                </android.support.v7.widget.CardView>
+                >
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_margin="10dp"
+                    card_view:cardCornerRadius="3dp">
+
+                    <Button
+                        android:id="@+id/addstoreaddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/transparent"
+                        android:gravity="center_vertical"
+                        android:onClick="addressClick"
+                        android:textColorHint="@color/colorGray"
+                        android:hint="가게 주소를 입력하세요."
+                        android:textColor="@color/colorBlack"
+                        android:textSize="18dp" />
+
+                </android.support.v7.widget.CardView>
+                >
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_margin="10dp"
+                    card_view:cardCornerRadius="3dp">
+
+                    <EditText
+                        android:id="@+id/addstorenumber"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/colorWhite"
+                        android:hint="전화번호을 입력하세요."
+                        android:imeOptions="actionDone"
+                        android:inputType="phone"
+                        android:textColorHint="@color/colorGray" />
+
+                </android.support.v7.widget.CardView>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="end">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="글자수 : "
+                            android:textColor="@color/colorBlack"
+                            android:textSize="10dp" />
+                        <TextView   android:id="@+id/lengthtext"
+                            android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"
+                            android:text="0"
+                            />
+                        <TextView
+                            android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"
+                            android:text="/"
+                            />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/max_text"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <android.support.v7.widget.CardView
+
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    android:layout_margin="10dp"
+                    card_view:cardCornerRadius="3dp">
+
+                    <EditText
+                        android:id="@+id/addstoretext"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/colorWhite"
+                        android:gravity="top"
+                        android:hint="가게 정보를 설명해주세요."
+                        android:imeOptions="actionDone"
+                        android:inputType="textMultiLine"
+                        android:scrollHorizontally="true"
+                        android:maxLength="500"
+                        android:breakStrategy="balanced"
+
+
+                        android:textColorHint="@color/colorGray" />
+                </android.support.v7.widget.CardView>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal">
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="150dp"
+                        android:layout_height="50dp"
+                        android:layout_marginRight="20dp"
+                        card_view:cardCornerRadius="3dp">
+
+                        <TextView
+                            android:id="@+id/bottomback"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/colorWhite"
+                            android:gravity="center"
+                            android:onClick="bottomBackfun"
+                            android:text="이전"
+                            android:textColor="@color/colorBlack"
+                            android:textStyle="bold" />
+
+                    </android.support.v7.widget.CardView>
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="150dp"
+                        android:layout_height="50dp"
+                        android:layout_marginLeft="10dp"
+                        card_view:cardCornerRadius="3dp">
+
+                        <TextView
+                            android:id="@+id/bottomnext"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/colorWhite"
+                            android:gravity="center"
+                            android:onClick="bottomNextfun"
+                            android:text="다음"
+                            android:textColor="@color/colorBlack"
+                            android:textStyle="bold" />
+
+                    </android.support.v7.widget.CardView>
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+    >
+</FrameLayout>

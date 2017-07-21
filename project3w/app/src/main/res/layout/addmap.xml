@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:map="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    tools:context="com.example.donghyunlee.project3w.Maps"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+            <ImageButton
+                android:id="@+id/mapback"
+                android:layout_width="@dimen/sizeIcon"
+                android:layout_height="@dimen/sizeIcon"
+                android:layout_gravity="center"
+                android:background="@android:color/transparent"
+                android:onClick="backmapFun"
+                android:src="@drawable/ic_back"
+                />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="40dp"
+                android:text="@string/item_menu0"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/sizeTitle"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/mapexit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@android:color/transparent"
+                android:gravity="end"
+                android:onClick="mapExitFun"
+                android:padding="16dp"
+                android:text="닫기"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/sizeContent2" />
+
+        </LinearLayout>
+    </android.support.v7.widget.Toolbar>
+
+    <TextView android:id="@+id/addressText"
+        android:layout_below="@id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="주소가 입력이 됩니다."
+        android:textStyle="bold"
+        android:textColor="@color/colorWhite"
+        android:background="@color/transBlack"
+        />
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/map"
+        android:layout_width="match_parent"
+        android:layout_height="450dp"
+        android:name="com.google.android.gms.maps.MapFragment"
+        android:layout_below="@id/toolbar"
+        android:onClick="dragListenerFun"/>
+
+    <LinearLayout
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_marginTop="5dp"
+        android:background="@color/colorLightGray"
+        android:layout_below="@id/map">
+
+        <android.support.v7.widget.CardView
+            android:layout_width="340dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:onClick="mapNext"
+            card_view:cardCornerRadius="3dp">
+
+            <Button
+                android:id="@+id/bottomnext"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorWhite"
+                android:gravity="center"
+                android:onClick="bottomNextfun"
+                android:text="다음"
+                android:textColor="@color/colorBlack"
+                android:textStyle="bold" />
+
+        </android.support.v7.widget.CardView>
+    </LinearLayout>
+
+</RelativeLayout>
