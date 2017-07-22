@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">project3w</string>
+    <string name="item_content0">모비딕은 판교역 근처에서 피자와 수제맥주를 즐길 수 있는 레스토랑입니다. 펑키한 인테리어와 널찍한 공간 퇴근길 지인들과 수다 떨며 스트레스를 해소하기에 최적화된 공간이죠. 눈만 마주쳐도 유쾌함이 흐르는 친구들과 치즈가 쭉- 늘어나는 피자 한 판, 청량감이 폭발하는 맥주 한잔하지 않을래요? </string>
+    <string name="item_content1">제로 투 나인은 드라이에이징 스테이크 전문 레스토랑으로, 구 스테이크의 총괄 셰프인 정성구 셰프가 오너 셰프로 있어요. 정성구 셰프는 우리나라 최초로 드라이에이징 스테이크를 자체 숙성하여 한국에 스테이크 붐을 일으킨 분으로 그릴 경력만 20년이라고 해요! 스테이크 맛은 걱정하지 않아도 되겠죠? T본 스테이크는 등심과 안심을 모두 맛볼 수 있죠. 당신은 어떤 부위를 좋아하세요? 부드러운 안심? 아니면 고소한 등심?</string>
+    <string name="item_content2">빈티지 1988은 이름에서 짐작할 수 있듯 빈티지한 감성이 묻어나는 이탈리안 레스토랑이에요. "삭막할 줄만 알았던 판교에 이런 감성적인 장소가 있다니!" 판교 직장인의 데이트 장소로도 매우 적합한 공간이에요. 스테이크와 파스타가 괜찮은 곳으로 특별히 라구 스파게티를 추천하고 싶은데 꼭, 와인과 함께 먹는 걸 권해요. Tip. 평일 저녁이나 토요일 및 공휴일에는 사장님의 피아노 연주와 함께 식사를 즐길 수 있다고 하니 커플들은 참고하세요. </string>
+    >
+    <string name="item_content3">이탈리는 마켓과 레스토랑이 결합한 그로서란트(Grocerant)로 이탈리아에서 설립된 브랜드예요. 그로서란트는 식재료 쇼핑과 식사를 한 번에 즐길 수 있는 공간을 뜻해요. 현대백화점 지하 1층에 자리 잡고 있는 이 공간에서 1,000여 개의 제품을 쇼핑할 수도 있고, 널찍하고 탁 트인 공간에서 캐주얼하게 이탈리안 음식을 즐길 수도 있어요. 음식을 먼저 먹어보고 재료를 구매하는 것도 좋은 방법이죠.</string>
+    <string name="item_content4">매그놀리아의 열기는 여전히 유효합니다. 레드벨벳 컵케이크과 바나나 푸딩은 이곳의 시그니처 메뉴로 유명하죠. 디저트의 성지답게 인테리어도 아기자기하고 예뻐요. 매그놀리아 컵케이크와 함께 인생 사진을 남길 수 있을 것만 같아요. 친구들과 신나게 쇼핑하고 당 충전 제대로 하고 싶을 때 매그놀리아만 한 선택지는 찾기 힘들 거예요.</string>
+    <string name="item_content5">한솥은 가격 대비 괜춘습니다. 판교에 머무르는 학생들에게 최적에 장소이죠 ㅎㅎ</string>
+    <string name="item_content6">메머드 커피숍은 가격 대비 괜춘습니다. XXL 아메리카노 커피가 오집니다. 그날 잠이 안올 수 있어요.</string>
+    <string name="item_content7">샤이바나 몰라 맛있대욥 ㅡㅡ</string>
+
+    <string name="item_menu0">맛집 등록</string>
+    <string name="item_menu1">-</string>
+    <string name="item_menu2">-</string>
+    <string name="item_menu3">-</string>
+    <string name="item_menu4">-</string>
+    <string name="title_activity_maps">Map</string>
+
+    <string name="max_text">500</string>
+    <string name="search_dialog">주소 입력 방법을 선택하세요.</string>
+</resources>
