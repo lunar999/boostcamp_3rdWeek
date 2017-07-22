@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="toolBar_title_margin">70dp</dimen>
+    <dimen name ="toolBar_title_size">20sp</dimen>
+
+    <dimen name="register_layout_padding">8dp</dimen>
+    <dimen name="register_layout_margin">8dp</dimen>
+    <dimen name="register_font_size">16sp</dimen>
+
+    <dimen name="map_layout_padding">8dp</dimen>
+    <dimen name="map_layout_margin">8dp</dimen>
+
+    <dimen name="toolBar_margin">8dp</dimen>
+
+    <dimen name="line_width">1dp</dimen>
+    <dimen name="half_unit_dimen">8dp</dimen>
+    <dimen name="edit_text_padding">20dp</dimen>
+
+    <dimen name="edit_text_height">300dp</dimen>
+
+</resources>

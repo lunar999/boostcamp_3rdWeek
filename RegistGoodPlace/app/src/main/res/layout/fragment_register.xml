@@ -1,0 +1,102 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:background="@color/colorLightGray"
+    android:orientation="vertical"
+    android:padding="@dimen/register_layout_padding"
+
+    tools:context="com.study.tedkim.registgoodplace.RegisterFragment">
+
+    <EditText
+        android:id="@+id/editText_shopName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="@dimen/register_layout_margin"
+        android:background="@drawable/edit_text_shape"
+        android:ems="10"
+        android:hint="맛집 이름"
+        android:inputType="textPersonName"
+        android:padding="20dp"
+        android:textSize="@dimen/register_font_size" />
+
+    <EditText
+        android:id="@+id/editText_shopAddr"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editText_shopName"
+        android:layout_marginBottom="@dimen/register_layout_margin"
+        android:background="@drawable/edit_text_shape"
+        android:ems="10"
+        android:hint="맛집 주소"
+        android:inputType="textPostalAddress"
+        android:padding="20dp"
+        android:textSize="@dimen/register_font_size" />
+
+    <EditText
+        android:id="@+id/editText_shopPhone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editText_shopAddr"
+        android:layout_marginBottom="@dimen/register_layout_margin"
+        android:background="@drawable/edit_text_shape"
+        android:ems="10"
+        android:hint="전화 번호"
+        android:inputType="phone"
+        android:padding="20dp"
+        android:textSize="@dimen/register_font_size" />
+
+    <TextView
+        android:id="@+id/textView_contentsLength"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/editText_shopPhone"
+        android:layout_gravity="right"
+        android:layout_marginBottom="@dimen/register_layout_margin"
+        android:text="글자수 : 0/500"
+        android:textAppearance="@style/TextAppearance.AppCompat" />
+
+    <EditText
+        android:id="@+id/editText_contents"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/edit_text_height"
+        android:layout_below="@+id/textView_contentsLength"
+        android:layout_marginBottom="@dimen/register_layout_margin"
+        android:background="@drawable/edit_text_shape"
+        android:ems="10"
+        android:gravity="top"
+        android:hint="후기를 써주세요"
+        android:inputType="textMultiLine"
+        android:padding="20dp"
+        android:textSize="@dimen/register_font_size" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/editText_contents"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/button_prev"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/register_layout_margin"
+            android:layout_weight="1"
+            android:background="@drawable/edit_text_shape"
+            android:text="이전" />
+
+        <Button
+            android:id="@+id/button_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/edit_text_shape"
+            android:text="다음" />
+    </LinearLayout>
+
+</RelativeLayout>
