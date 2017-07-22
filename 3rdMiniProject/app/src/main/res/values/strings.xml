@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">3rdMiniProject</string>
+    <string name="title_name">맛집 등록</string>
+    <string name="add_hint_name">맛집 이름을 입력하세요</string>
+    <string name="add_hint_address">주소를 입력하세요</string>
+    <string name="add_hint_phone">전화번호를 입력하세요</string>
+    <string name="add_content_num_header">글자수 :\u0020</string>
+    <string name="add_hint_content">내용을 입력하세요 (최대 %d자)</string>
+    <string name="err_editor_empty">입력된 내용이 없습니다</string>
+    <string name="err_empty_any">모든 입력란을 채워주세요</string>
+    <string name="err_permission">모든 기능 사용을 위해 권한이 필요합니다</string>
+    <string name="err_same_restraunt">같은 이름의 마커가 존재합니다. 다른 이름으로 다시 시도 해 주세요.</string>
+    <string name="err_not_found_address">위치를 찾을 수 없습니다</string>
+    <string name="progress_saving">저장 중</string>
+    <string name="progress_saving_detail">저장 중 입니다</string>
+    <string name="previous">이전</string>
+    <string name="next">다음</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="address">주소</string>
+</resources>
