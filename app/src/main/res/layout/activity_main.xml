@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorGray"
+    tools:context="com.project3.mini.yunkyun.miniproject3.MainActivity">
+
+    <EditText
+        android:id="@+id/et_name"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:layout_margin="4dp"
+        android:paddingLeft="8dp"
+        android:background="@drawable/bg_edittext"
+        android:inputType="text"
+        android:imeOptions="actionNext"
+        android:hint="이름"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/et_address"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:layout_margin="4dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="8dp"
+        android:background="@drawable/bg_edittext"
+        android:hint="주소"
+        android:textSize="15sp" />
+
+    <EditText
+        android:id="@+id/et_phonenumber"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:layout_margin="4dp"
+        android:paddingLeft="8dp"
+        android:background="@drawable/bg_edittext"
+        android:inputType="phone"
+        android:hint="전화번호"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/tv_character_counter"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_margin="4dp"
+        android:gravity="right|center_vertical"
+        android:text="글자수 0/500" />
+
+    <EditText
+        android:id="@+id/et_memo"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="8"
+        android:layout_margin="4dp"
+        android:gravity="top"
+        android:padding="8dp"
+        android:background="@drawable/bg_edittext"
+        android:maxLength="500"
+        android:inputType="textMultiLine"
+        android:hint="메모"
+        android:textSize="15sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_prev"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/btn_prev" />
+
+        <Button
+            android:id="@+id/btn_main_next"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/btn_next" />
+    </LinearLayout>
+</LinearLayout>
