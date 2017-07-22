@@ -122,8 +122,10 @@ public class Maps extends Fragment implements OnMapReadyCallback {
         storeList = getStoreList();
         Log.i(TAG, ">>>>>   storeList.size :  " + storeList.size()); // :1
         Log.i(TAG, ">>>>>     storeList. :  "+storeList.get(0));
-        Toast.makeText(getActivity(), "", Toast.LENGTH_SHORT).show();
-        getActivity().finish();
+        Toast.makeText(getActivity(), "설정이 완료되었습니다.", Toast.LENGTH_SHORT).show();
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        fragmentManager.beginTransaction().remove(Maps.this).commit();
+        fragmentManager.popBackStack();
     }
 
     private RealmResults<StoreVO> getStoreList(){
@@ -149,8 +151,15 @@ public class Maps extends Fragment implements OnMapReadyCallback {
         mRealm.executeTransaction(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
-                cur_StoreV0.setMakerLat(cur_lat);
-                cur_StoreV0.setMakerLon(cur_lon);
+
+                try {
+                    cur_StoreV0.setMakerLat(cur_lat);
+                    cur_StoreV0.setMakerLon(cur_lon);
+                }catch (NullPointerException e)
+                {
+                    Log.e(TAG, ">>>>>     update_CRUD NULLPOINTEREXCEPTION ERROR"+ "lat:"+cur_lat + "  lon:"+cur_lon);
+                    Toast.makeText(getActivity(), "마커가 수정되지 않았습니다.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -164,6 +173,7 @@ public class Maps extends Fragment implements OnMapReadyCallback {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        Log.e(TAG, "11111111111111111111111111111111111111111111111111111111111111111111");
     }
 
     @Override
@@ -180,7 +190,7 @@ public class Maps extends Fragment implements OnMapReadyCallback {
         else{
             ActivityCompat.requestPermissions(getActivity(), new String[] {android.Manifest.permission.ACCESS_FINE_LOCATION,
                     android.Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
-            map.setMyLocationEnabled(true);
+            map.setMyLocationEnabled(false);
             map.getUiSettings().setMyLocationButtonEnabled(false);
             Log.i(TAG, "Permission fail");
         }
