@@ -13,6 +13,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +37,7 @@ import butterknife.OnClick;
 import io.realm.Realm;
 import io.realm.RealmResults;
 
+import static android.content.Context.INPUT_METHOD_SERVICE;
 import static com.example.donghyunlee.project3w.R.id.map;
 
 public class Maps extends Fragment implements OnMapReadyCallback {
@@ -42,6 +46,7 @@ public class Maps extends Fragment implements OnMapReadyCallback {
     MapView mapview;
     @BindView(R.id.addressText)
     TextView addressText;
+
 
     private String name;
     private String content;
@@ -53,10 +58,16 @@ public class Maps extends Fragment implements OnMapReadyCallback {
     // 드래그 시 해당 레코드인 StoreV0 객체
     private StoreVO cur_StoreV0;
 
+    private  Geocoder mGeocoder;
     private static final String TAG = Maps.class.getSimpleName();
     private RealmResults<StoreVO> storeList;
     private Realm mRealm;
     private LatLng mLatLng;
+
+    Button addstoreaddress;
+    EditText addstorename;
+    EditText addstoretext;
+    EditText addstorenumber;
     public Maps() {}
     public static Maps newInstance(RegItem item){
         Maps appmap = new Maps();
@@ -84,7 +95,7 @@ public class Maps extends Fragment implements OnMapReadyCallback {
         MainApplication mainAplication = (MainApplication) getActivity().getApplication();
         mRealm = mainAplication.getmRealm();
 
-        init();
+        init(v);
         /**
             지도 위 주소 정보 setting
          */
@@ -96,7 +107,17 @@ public class Maps extends Fragment implements OnMapReadyCallback {
         addressText.bringToFront();
         return v;
     }
-    private void init() {
+    private void init(View v){
+
+        //TODO manifests에도.... 여기에도.. set 키보드를 숨기기 set했지만, 키보드가 내려지지 않는 이유는 무엇일까요..?
+        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(v.getWindowToken(),0);
+
+        addstoreaddress = (Button) v.findViewById(R.id.addstoreaddress);
+        addstorename = (EditText) v.findViewById(R.id.addstorename);
+        addstoretext = (EditText) v.findViewById(R.id.addstoretext);
+        addstorenumber = (EditText) v.findViewById(R.id.addstorenumber);
+
         address = getArguments().getString("address");
         phoneNum = getArguments().getString("phoneNum");
         name = getArguments().getString("name");
@@ -123,9 +144,15 @@ public class Maps extends Fragment implements OnMapReadyCallback {
         Log.i(TAG, ">>>>>   storeList.size :  " + storeList.size()); // :1
         Log.i(TAG, ">>>>>     storeList. :  "+storeList.get(0));
         Toast.makeText(getActivity(), "설정이 완료되었습니다.", Toast.LENGTH_SHORT).show();
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-        fragmentManager.beginTransaction().remove(Maps.this).commit();
-        fragmentManager.popBackStack();
+        // TODO Text 초기화해야하나 잘 안되서 일단 액티비티 걍 종료.  프래그먼트를 종료시키고, 액티비티에게 이벤트 주는법.... 질문하기
+//        addstoreaddress.setText(null);
+//        addstorename.setText(null);
+//        addstorenumber.setText(null);
+//        addstoretext.setText(null);
+//        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+//        fragmentManager.beginTransaction().remove(Maps.this).commit();
+//        fragmentManager.popBackStack();
+        getActivity().finish();
     }
 
     private RealmResults<StoreVO> getStoreList(){
@@ -155,10 +182,12 @@ public class Maps extends Fragment implements OnMapReadyCallback {
                 try {
                     cur_StoreV0.setMakerLat(cur_lat);
                     cur_StoreV0.setMakerLon(cur_lon);
+                    cur_StoreV0.setStoreAddress(getaddrwithLatLon(cur_lat, cur_lon));
                 }catch (NullPointerException e)
                 {
                     Log.e(TAG, ">>>>>     update_CRUD NULLPOINTEREXCEPTION ERROR"+ "lat:"+cur_lat + "  lon:"+cur_lon);
-                    Toast.makeText(getActivity(), "마커가 수정되지 않았습니다.", Toast.LENGTH_SHORT).show();
+
+                    Toast.makeText(getActivity(), "방금 등록된 가게의 마커는 수정할 수 없습니다.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -173,7 +202,6 @@ public class Maps extends Fragment implements OnMapReadyCallback {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        Log.e(TAG, "11111111111111111111111111111111111111111111111111111111111111111111");
     }
 
     @Override
@@ -195,22 +223,8 @@ public class Maps extends Fragment implements OnMapReadyCallback {
             Log.i(TAG, "Permission fail");
         }
         // 입력된 위치의 위도 경도 가져오기.
-        Geocoder mGeocoder = new Geocoder(getContext());
-        try {
-            List<Address> data = mGeocoder.getFromLocationName(address, 1);
-            Log.e(TAG, "Geocoder lat:" + data.get(0).getLatitude() +"lon" + data.get(0).getLongitude());
-            lat = data.get(0).getLatitude();
-            lon = data.get(0).getLongitude();
+        getLanLonwithaddr();
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (IndexOutOfBoundsException e) {
-            Toast.makeText(getActivity(), "해당되는 주소가 없습니다. 주소를 다시 입력해주세요. ", Toast.LENGTH_SHORT).show();
-            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-            fragmentManager.beginTransaction().remove(Maps.this).commit();
-            fragmentManager.popBackStack();
-            e.printStackTrace();
-        }
         // 현재 등록한 카메라 셋팅
         mLatLng = new LatLng(lat, lon);
         map.addMarker(new MarkerOptions().position(mLatLng)
@@ -245,7 +259,6 @@ public class Maps extends Fragment implements OnMapReadyCallback {
             public void onMarkerDragEnd(Marker marker) {
                 Log.i(TAG, "포지션: " +marker.getPosition());
                 update_CRUD(cur_StoreV0, marker.getPosition().latitude, marker.getPosition().longitude);
-                Toast.makeText(getActivity(), "마커 설정 완료", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -261,4 +274,44 @@ public class Maps extends Fragment implements OnMapReadyCallback {
                     .title(storevo.getStoreName()).snippet(storevo.getStoreAddress()).draggable(true)).setTag(storevo);
         }
     }
+
+    void getLanLonwithaddr(){
+        mGeocoder = new Geocoder(getContext());
+        try {
+            List<Address> data = mGeocoder.getFromLocationName(address, 1);
+            Log.e(TAG, "Geocoder lat:" + data.get(0).getLatitude() +"lon" + data.get(0).getLongitude());
+            lat = data.get(0).getLatitude();
+            lon = data.get(0).getLongitude();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (IndexOutOfBoundsException e) {
+            Toast.makeText(getActivity(), "해당되는 주소가 없습니다. 주소를 다시 입력해주세요. ", Toast.LENGTH_SHORT).show();
+            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+            fragmentManager.beginTransaction().remove(Maps.this).commit();
+            fragmentManager.popBackStack();
+            e.printStackTrace();
+        }
+    }
+
+    String getaddrwithLatLon(double cur_lat, double cur_lon){
+        mGeocoder = new Geocoder(getContext());
+        String cur_address = null;
+        try {
+            List<Address> data = mGeocoder.getFromLocation(cur_lat, cur_lon ,1);
+            cur_address = data.get(0).getAddressLine(0);
+            Log.e(TAG, "Geocoder address:" + data.get(0).getAddressLine(0));
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (IndexOutOfBoundsException e) {
+            Toast.makeText(getActivity(), "해당되는 주소가 없습니다. 주소를 다시 입력해주세요. ", Toast.LENGTH_SHORT).show();
+            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+            fragmentManager.beginTransaction().remove(Maps.this).commit();
+            fragmentManager.popBackStack();
+            e.printStackTrace();
+        }
+        return cur_address;
+    }
+
+
 }

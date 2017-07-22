@@ -68,13 +68,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/colorLightGray"
-
                 android:orientation="vertical">
 
                 <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_margin="10dp"
+                    android:layout_weight="1"
                     card_view:cardCornerRadius="3dp">
 
                     <EditText
@@ -93,6 +93,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_margin="10dp"
+                    android:layout_weight="1"
                     card_view:cardCornerRadius="3dp">
 
                     <Button
@@ -114,6 +115,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_margin="10dp"
+                    android:layout_weight="1"
                     card_view:cardCornerRadius="3dp">
 
                     <EditText
@@ -130,7 +132,8 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -164,7 +167,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="180dp"
                     android:layout_margin="10dp"
-                    card_view:cardCornerRadius="3dp">
+                    card_view:cardCornerRadius="3dp"
+                    android:layout_weight="1">
 
                     <EditText
                         android:id="@+id/addstoretext"
@@ -178,8 +182,6 @@
                         android:scrollHorizontally="true"
                         android:maxLength="500"
                         android:breakStrategy="balanced"
-
-
                         android:textColorHint="@color/colorGray" />
                 </android.support.v7.widget.CardView>
 
@@ -187,6 +189,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:layout_weight="1"
                     android:orientation="horizontal">
 
                     <android.support.v7.widget.CardView
