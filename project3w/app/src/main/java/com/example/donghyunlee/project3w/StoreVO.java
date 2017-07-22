@@ -9,6 +9,9 @@ import io.realm.annotations.PrimaryKey;
 
 public class StoreVO extends RealmObject {
 
+    /**
+        칼럼 DATA
+     */
     @PrimaryKey
     private long id;
     private String StoreName;

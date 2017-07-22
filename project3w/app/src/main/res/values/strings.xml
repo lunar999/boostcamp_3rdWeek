@@ -19,4 +19,14 @@
 
     <string name="max_text">500</string>
     <string name="search_dialog">주소 입력 방법을 선택하세요.</string>
+
+    <string name="dialog_title">입력창</string>
+    <string name="dialog_message">주소를 직접 입력해주세요.</string>
+    <string name="dialog_posi">확인</string>
+    <string name="dialog_nega">취소</string>
+
+    <string name="backMessage">뒤로가기 버튼 입니다.</string>>
+    <string name="exitMessage">액티비티 종료 버튼 입니다.</string>
+    <string name="textagainMessage">입력해주세요</string>
+    <string name="completeMessage">맛집 등록이 완료되었습니다.</string>
 </resources>

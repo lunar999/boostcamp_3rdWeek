@@ -1,7 +1,6 @@
 package com.example.donghyunlee.project3w;
 
 import android.app.Application;
-import android.util.Log;
 
 import io.realm.Realm;
 
@@ -16,11 +15,13 @@ public class MainApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        Log.e("??","ddddddddddddddddddddddddddddddddddddddddddddddddddddddddd");
-         Realm.init(this);
+        // Realm 환경 셋팅
+        Realm.init(this);
+        // Realm 객체 생성
         mRealm = Realm.getDefaultInstance();
     }
 
+    // Getter
     public Realm getmRealm() {
         return mRealm;
     }

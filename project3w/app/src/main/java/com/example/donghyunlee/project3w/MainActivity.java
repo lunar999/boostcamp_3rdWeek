@@ -43,17 +43,13 @@ public class MainActivity extends AppCompatActivity {
     EditText addstoretext;
     @BindView(R.id.lengthtext)
     TextView lengthtext;
-    static final int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
+
+    private static final int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
     private static final String TAG = MainActivity.class.getSimpleName();
-    private static final String[] dialogItems = {"주소검색", "직접입력", "내용지우기" ,"취소"};
+    private final String[] dialogItems = {"주소검색", "직접입력", "내용지우기", "취소"};
     private EditText inputText;
     private Maps maps;
 
-    /**
-     * DB REALM 변수
-     */
-
-    //private Realm mRealm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,12 +61,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void init() {
-     //mRealm.getDefaultInstance();
-        // 리스너
+        // Text 리스너
         addstoretext.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
             }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -101,23 +95,20 @@ public class MainActivity extends AppCompatActivity {
     private AlertDialog.Builder createDialog()
     {
         AlertDialog.Builder insertDialog = new AlertDialog.Builder(this);
-        insertDialog.setTitle("입력창")
-                .setMessage("주소를 직접 입력해주세요!")
-                .setPositiveButton("확인", new DialogInterface.OnClickListener(){
+        insertDialog.setTitle(R.string.dialog_title)
+                .setMessage(R.string.dialog_message)
+                .setPositiveButton(R.string.dialog_posi, new DialogInterface.OnClickListener(){
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         addstoreaddress.setText(inputText.getText().toString());
                     }
                 })
-                .setNegativeButton("취소", new DialogInterface.OnClickListener(){
-
+                .setNegativeButton(R.string.dialog_nega, new DialogInterface.OnClickListener(){
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
                     }
                 })
                 .create();
-
         return insertDialog;
     }
 
@@ -151,37 +142,35 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @OnClick(R.id.topback)
+    /**
+     * OnClick 리스너
+     */
+     @OnClick(R.id.topback)
     void topBackFun(){
-        Toast.makeText(this, "뒤로가기 버튼 입니다.", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, R.string.backMessage, Toast.LENGTH_SHORT).show();
     }
     @OnClick(R.id.topexit)
-    void topNextFun() {
-        Toast.makeText(this, "액티비티 종료 버튼 입니다.", Toast.LENGTH_SHORT).show();;
-    }
+    void topExitFun() { Toast.makeText(this, R.string.exitMessage, Toast.LENGTH_SHORT).show();}
     @OnClick(R.id.bottomback)
-    void bottomBackfun(){
-        finish();
-    }
+    void bottomBackfun(){ finish();}
     @OnClick(R.id.bottomnext)
-    void bottomNextfun() { // (String name, String content, String address, String phoneNum)
-
+    void bottomNextfun() {
         TextView[] items = {addstorename, addstoreaddress, addstorenumber, addstoretext };
         String [] items_name = {"가게 이름", "가게 주소", "가게 전화번호", "가게 정보"};
-        //inputText.seterror 방법도 있음.
+        // TODO inputText.seterror 방법으로 에러 처리 가능
         for(int i = 0 ; i < items.length ; i++) {
             if(items[i].length() <= 0) {
-                if(items[i] == addstoreaddress)
+                if(items[i] == addstoreaddress) {
                     addressClick();
+                }
                 items[i].requestFocus();
-                Toast.makeText(this, items_name[i]+" 입력해주세요", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, items_name[i] + R.string.textagainMessage, Toast.LENGTH_SHORT).show();
                 return;
             }
         }
-
+        // 프래그먼트 생성, 입력된 data 전송하기
         openFragment(maps.newInstance(new RegItem(addstorename.getText().toString(), addstoretext.getText().toString(),
                 addstoreaddress.getText().toString(), addstorenumber.getText().toString())));
-
     }
 
     @OnClick(R.id.addstoreaddress)
@@ -189,7 +178,6 @@ public class MainActivity extends AppCompatActivity {
     {
         Log.e(TAG, "addressClick");
         AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AppCompatAlertDialogStyle);
-
         builder.setTitle(R.string.search_dialog)
                 .setItems(dialogItems, new DialogInterface.OnClickListener() {
                     @Override
@@ -211,12 +199,8 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 });
-
         AlertDialog dialog = builder.create();    // 알림창 객체 생성
         dialog.show();                            // 알림창 띄우기
 
     }
-
-
-
 }

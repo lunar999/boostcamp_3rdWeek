@@ -8,7 +8,6 @@ package com.example.donghyunlee.project3w;
     컨텐츠에 들어간 Item
  */
 public class RegItem {
-
     private String name;
     private String content;
     private String address;
@@ -22,7 +21,6 @@ public class RegItem {
         this.content = content;
         this.address = address;
         this.phoneNum = phoneNum;
-
     }
     /*
         Getter
@@ -32,18 +30,11 @@ public class RegItem {
         return phoneNum;
     }
 
-    public String getAddress() {
+    public String getAddress() { return address; }
 
-        return address;
-    }
-
-    public String getContent() {
-
-        return content;
-    }
+    public String getContent() { return content; }
 
     public String getName() {
-
         return name;
     }
 
@@ -55,18 +46,9 @@ public class RegItem {
         this.address = address;
     }
 
-    public void setPhoneNum(String phoneNum) {
+    public void setPhoneNum(String phoneNum) { this.phoneNum = phoneNum; }
 
-        this.phoneNum = phoneNum;
-    }
+    public void setContent(String content) { this.content = content; }
 
-    public void setContent(String content) {
-
-        this.content = content;
-    }
-
-    public void setName(String name) {
-
-        this.name = name;
-    }
+    public void setName(String name) { this.name = name; }
 }
