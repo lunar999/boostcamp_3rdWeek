@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">맛집 등록</string>
+    <string name="title_activity_map">Map</string>
+
+    <string name="edit_hint_name">맛집 이름</string>
+    <string name="text_hint_address">주소</string>
+    <string name="edit_hint_tel">전화 번호</string>
+    <string name="edit_hint_content">설명</string>
+
+    <string name="text_count">글자수 : 0/500</string>
+    <string name="text_Start">글자수 : </string>
+    <string name="text_end">/500</string>
+
+    <string name="button_back">이전</string>
+    <string name="button_next">다음</string>
+    <string name="menu_close">닫기</string>
+
+    <string name="fragment_illegal_state_exception">cannot start fragment </string>
+    <string name="permission_notification">현재 위치 확인을 위해 권한 설정이 필요합니다</string>
+    <string name="snackbar_move">이동</string>
+    <string name="package_name">package:kyi.boost3</string>
+
+    <string name="snackbar_color">#FF8080</string>
+    <string name="no_address">주소 없음</string>
+    <string name="fail_address">주소 검색 실패</string>
+
+    <string name="snackbar_regist">이름과 주소가 필요합니다</string>
+    <string name="snackbar_ok">확인</string>
+    <string name="snackbar_back">이전 버튼</string>
+    <string name="snackbar_next">다음 버튼</string>
+</resources>
