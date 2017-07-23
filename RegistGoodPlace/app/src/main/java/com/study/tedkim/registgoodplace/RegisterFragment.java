@@ -206,7 +206,10 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
             // 1.2 Map Fragment 호출
             FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction().addToBackStack(null);
             transaction.replace(R.id.layout_container, fragment);
-            transaction.commit();
+
+            // TODO - 튜터님께 여쭤볼 것.
+            // Activity 의 onSaveInstance() 와 Transaction commit 시기의 상관관계
+            transaction.commitAllowingStateLoss();
         }
 
     }
