@@ -117,9 +117,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
         // 1. 초기 카메라 position 설정을 위한 주소 data get
         Bundle bundle = getArguments();
         String address = bundle.getString("ADDRESS");
-        mCurrentAddr.setText(address);
 
-        // 2. 데이터 베이스에 존재하는 모든 Record 에 대한 Marker 생성
+        // 2. 데이터베이스에 존재하는 모든 Record 에 대한 Marker 생성
         RealmResults<ShopInfo> results = mRealm.where(ShopInfo.class).findAll();
         for (ShopInfo data : results) {
 
@@ -132,6 +131,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
 
                 // 2.3 직전에 입력된 주소라면 초기 position 으로 설정
                 if(address.equals(data.getAddress())){
+                    mCurrentAddr.setText(addressList.get(0).getAddressLine(0));
                     mInitPosition = position;
                 }
 
@@ -195,6 +195,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
     @Override
     public void onMarkerDragEnd(Marker marker) {
 
+        ShopInfo info = (ShopInfo)marker.getTag();
+
+
         // 1. 현재 위치정보를 가져온다.
         mCurrentPosition = marker.getPosition();
         moveCamera(mCurrentPosition);
@@ -206,8 +209,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
     }
 
     @Override

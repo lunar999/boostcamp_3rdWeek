@@ -69,7 +69,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView_contentsLength"
         android:layout_marginBottom="@dimen/register_layout_margin"
-        android:layout_weight="10"
+        android:layout_weight="15"
         android:background="@drawable/edit_text_shape"
         android:ems="10"
         android:gravity="top"
