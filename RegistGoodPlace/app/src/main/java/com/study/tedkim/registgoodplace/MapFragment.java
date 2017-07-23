@@ -166,8 +166,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
         uiSettings.setMapToolbarEnabled(true);  // googleMap ToolBar 활성화
 
         // 3. MyLocation 버튼 활성화를 위한 self permission 체크
-        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 
             // permission 이 허용 상태이면 MyLocation 버튼을 활성화 한다
             mGoogleMap.setMyLocationEnabled(true);
