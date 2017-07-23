@@ -20,6 +20,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.nispok.snackbar.Snackbar;
+import com.nispok.snackbar.SnackbarManager;
+
 import java.util.Date;
 
 import io.realm.Realm;
@@ -111,12 +114,6 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
                 // 1. Map Fragment 를 호출하기 전에 위치 정보와 관련된 Permission 들 체크
                 checkPermission();
 
-                // 2. 데이터베이스 (Realm) 에 작성된 내용을 저장
-                insertData();
-
-                // 3. 작성된 주소를 바탕으로 Map Fragment 호출
-                setFragment();
-
                 break;
 
         }
@@ -126,12 +123,21 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
     private void checkPermission() {
 
         // 1. Permission 이 설정 되지 않았다면,
-        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
+            // TODO - Activity 에서 사용할 때에는 AppCompat 키워드를, Fragment 에서 사용 할 때에는 키워드 없이 사용해야 한다
             // 1.1 Permission 요청
-            ActivityCompat.requestPermissions(getActivity(),
-                    new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION}, REQ_CAMERA_PERMISSION);
+            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQ_CAMERA_PERMISSION);
+
+        }
+        // 2. permission 이 설정 되었다면,
+        else{
+
+            // 2.1 데이터베이스 (Realm) 에 작성된 내용을 저장
+            insertData();
+
+            // 2.2 작성된 주소를 바탕으로 Map Fragment 호출
+            setFragment();
         }
     }
 
@@ -140,16 +146,22 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        // 1. 요청한 permission 들에 대해,
+        // 요청한 permission 들에 대해...
         if (requestCode == REQ_CAMERA_PERMISSION) {
-            // 2. 권한을 체크한다
-            for (int grant : grantResults) {
-                // 3. ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION 중 하나라도 거부되었다면,
-                if (grant == PackageManager.PERMISSION_DENIED) {
 
-                    // TODO - 어떤 동작을 할지 생각해 볼 것
-                    // 4. Activity 를 종료... 한다?
-                    Toast.makeText(getContext(), "위치정보를 허용해 주셔야 이용 가능합니다.", Toast.LENGTH_SHORT).show();
+            // 1. 권한을 체크한다
+            for (int grant : grantResults) {
+                // 1.1. ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION 중 하나라도 거부되었다면 메세지 호출
+                if (grant == PackageManager.PERMISSION_DENIED) {
+                    SnackbarManager.show(Snackbar.with(getContext()).text(R.string.permission_message));
+                }
+                // 1.2. 권한 허용이 되었다면,
+                else{
+                    // 1.2.1 데이터베이스 (Realm) 에 작성된 내용을 저장
+                    insertData();
+
+                    // 1.2.2 작성된 주소를 바탕으로 Map Fragment 호출
+                    setFragment();
                 }
             }
         }
@@ -194,7 +206,10 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
             // 1.2 Map Fragment 호출
             FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction().addToBackStack(null);
             transaction.replace(R.id.layout_container, fragment);
-            transaction.commit();
+
+            // TODO - 튜터님께 여쭤볼 것.
+            // Activity 의 onSaveInstance() 와 Transaction commit 시기의 상관관계
+            transaction.commitAllowingStateLoss();
         }
 
     }
