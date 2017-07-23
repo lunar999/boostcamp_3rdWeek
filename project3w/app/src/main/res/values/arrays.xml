@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name= "dialogItems" >
+        <item>주소검색</item>
+        <item>직접입력</item>
+        <item>내용지우기</item>
+        <item>취소</item>
+    </string-array>
+
+
+    <string-array name= "dialogItems_2" >
+        <item>가게 이름</item>
+        <item>가게 주소</item>
+        <item>가게 전화번호</item>
+        <item>가게 정보</item>
+    </string-array>
+</resources>
